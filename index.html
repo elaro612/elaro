@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Professional Online Store</title>
+  <style>
+    /* ------- base ----- */
+    /* ------- base ----- */
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f4f6f9;
+      color: #111;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 30px auto;
+      padding: 0 16px;
+    }
+#navBar {
+  display: none; /* hidden initially */
+  padding: 12px 20px;
+  background: linear-gradient(90deg, #ebdcc4, #eacc9f);
+  color: rgb(0, 0, 0);
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* spread items across the bar */
+  border-radius: 8px;
+  gap: 16px; /* spacing between items */
+  max-width: 1100px;   /* match container width */
+  margin: 0 auto;       /* center horizontally */
+}
+
+/* Hamburger left */
+.menu-wrapper {
+  position: relative;
+  margin-left: 8px;
+}
+
+.menu-btn {
+  font-size: 22px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+/* Dropdown menu */
+.menu-dropdown {
+  display: none;
+  position: absolute;
+  top: 36px;
+  left: 0;
+  background: white;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  overflow: hidden;
+  z-index: 100;
+  flex-direction: column;
+}
+
+.menu-dropdown button {
+  width: 150px;
+  padding: 10px;
+  background: white;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.menu-dropdown button:hover {
+  background: #f0f0f0;
+}
+
+/* Search bar middle */
+#topSearch {
+  flex: 1; /* take all remaining space */
+  margin: 0 12px; /* space from hamburger and cart */
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+/* Cart button */
+#cartButton {
+  margin-right: 12px; 
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  background: black;
+  color: white;
+  cursor: pointer;
+}
+
+/* Logout right */
+#logoutButton {
+  margin-right: 8px;
+}
+/*old*/
+    /* NAVBAR */
+    #navBar {
+      display: none;
+      padding: 12px 20px;
+      background: linear-gradient(90deg, #ebdcc4, #eacc9f);
+      color: rgb(0, 0, 0);
+      justify-content: center;
+      /* ✅ Center login/cart area */
+      align-items: center;
+      gap: 12px;
+      border-radius: 8px;
+    }
+
+    #navBar h2 {
+      margin: 0;
+      font-size: 18px;
+      letter-spacing: 0.6px;
+    }
+
+    #navBar input {
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: none;
+      width: 280px;
+      outline: none;
+    }
+
+    /* BUTTON */
+    button {
+      padding: 8px 14px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: #000001;
+      color: white;
+      font-weight: 600;
+    }
+
+    button.ghost {
+      background: transparent;
+      color: #f7f7f7;
+      border: 1px solid rgba(11, 114, 255, 0.12);
+    }
+
+    /* ✅ MAKE CART BUTTON ORANGE */
+    #navBar button.cart-btn {
+  background: orange !important;
+  color: rgb(9, 9, 9) !important;
+}
+    
+
+    /* LOGIN */
+    section {
+      display: none;
+      padding: 20px;
+    }
+
+    #loginPage {
+      display: block;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      /* already centered */
+      align-items: center;
+      background-image: url(image/picture.jpg/alihassan.jpg);
+      background-size: cover;
+      background-position: -3% center;
+    }
+
+    .login-box {
+      background: rgb(255, 255, 255);
+      padding: 20px;
+      border-radius: 30px;
+      text-align: center;
+      float: right;
+      width: 300px;
+      margin: 80px;
+      box-shadow: 0 8px 30px #ebdcc4;
+    }
+
+    .login-box input {
+      width: 92%;
+      padding: 12px;
+      margin-top: 12px;
+      border: 1px solid #e3e7ea;
+      border-radius: 6px;
+      outline: none;
+    }
+
+    /* CATEGORY BUTTONS */
+    .category-btns {
+      text-align: center;
+      margin: 18px 0;
+    }
+
+    .category-btns button {
+      margin: 6px;
+      background: #060000;
+      color: white;
+      padding: 8px 14px;
+      border-radius: 6px;
+    }
+
+    /* PRODUCTS */
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      padding: 0 40px;
+      gap: 20px;
+    }
+
+    .product {
+      background: rgb(7, 0, 0);
+      padding: 0 16px; 
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 6px 18px rgba(255, 255, 255, 0.06);
+    }
+    .product:hover {
+  transform: translateY(-20px);       /* move up slightly */
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);  /* stronger shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+    .product img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .product h3 {
+      margin: 10px 0 6px;
+      font-size: 16px;
+    }
+
+    .product p {
+      margin: 6px 0 10px;
+      color: #333;
+      font-weight: 600
+    }
+
+    /* ✅ MAKE ALL "ADD TO CART" BUTTONS BLACK */
+    .product button {
+      background: black !important;
+      color: rgb(224, 220, 220) !important;
+    }
+
+    /* CART / BILLING / DELIVERY / CONFIRM */
+    .cart-inner,
+    .billing-inner,
+    .confirm-inner,
+    .feedback-inner {
+      background: white;
+      padding: 18px;
+      border-radius: 10px;
+      box-shadow: 0 8px 30px rgba(2, 6, 23, 0.06);
+      max-width: 550px;
+      margin: 12px auto;
+    }
+
+    .qty-controls button {
+      background: #e9eefb;
+      color: #0b72ff;
+    }
+
+    /* responsive */
+    @media (max-width:700px) {
+      .form-row {
+        flex-direction: column;
+      }
+
+      #navBar input {
+        width: 140px;
+      }
+    }
+
+    /* ✅ Make product name & price white */
+    .product h3,
+    .product p {
+      color: white !important;
+    }
+
+    /* ✅ Make REMOVE button black */
+    #cartPage button.ghost {
+      background: black !important;
+      color: white !important;
+      border: 1px solid black !important;
+    }
+
+    /* ✅ Make BACK button black (in cart total area) */
+    #cartPage button[onclick*="productPage"] {
+      background: black !important;
+      color: white !important;
+    }
+
+    /* ✅ Make BACK TO CART button BLACK on Billing Page */
+    #billingPage button.ghost {
+      background: black !important;
+      color: white !important;
+      border: 1px solid black !important;
+    }
+
+    input,
+    textarea {
+      margin-bottom: 15px;
+    }
+
+    #productpage button.new {
+      width: auto;
+      background-size: auto;
+    }
+    .category-flex {
+      position: relative;
+      width: 100%;
+      padding: 40px 0;
+      /* spacing up & down */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* ========== CENTER BUTTON (Large) ========== */
+    .center-btn {
+      background: black;
+      color: white;
+      padding: 14px 40px;
+      font-size: 20px;
+      border-radius: 12px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* ========== SIDE BUTTONS (Small) ========== */
+    .side-btn {
+      background: black;
+      color: white;
+      padding: 10px 22px;
+      font-size: 15px;
+      border-radius: 10px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    /* LEFT BUTTON */
+    .left-btn {
+      left: 40px;
+      /* Distance from center button */
+    }
+
+    /* RIGHT BUTTON */
+    .right-btn {
+      right: 40px;
+      /* Distance from center button */
+    }
+
+    body {
+      
+ background-image: url("image/ali.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+     
+    }
+
+    .product-heading {
+      color: white;
+    }
+    /* ===== IMAGE BANNER ===== */
+.image-banner {
+   height: 450px;
+  width: 100%;
+  max-width: 1100px;       /* match container width, limits horizontal stretch */
+  margin: 20px auto 30px;  /* center horizontally with top/bottom spacing */
+  padding: 0 16px;          /* padding from left and right */
+}
+
+.image-banner img {
+  width: 100%;
+  height: 400px;            /* restore original banner height */
+  object-fit: cover;        /* maintain image ratio */
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgb(255, 255, 255);
+}
+
+/* ===== HAMBURGER MENU ===== */
+.menu-wrapper {
+  position: relative;
+}
+
+.menu-btn {
+  font-size: 24px;
+  padding: 6px 14px;
+  background: #ebdcc4;
+  color: white;
+  border-radius: 8px;
+}
+
+.menu-dropdown {
+  display: none;
+  position: absolute;
+  top: 45px;
+  left: 0;
+  background: #181818;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  min-width: 200px;
+  overflow: hidden;
+  z-index: 999;
+}
+
+.menu-dropdown button {
+  width: 100%;
+  padding: 12px;
+  background: none;
+  border: none;
+  text-align: left;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease; /* smooth effect */
+}
+
+/* Glow on hover */
+.menu-dropdown button:hover {
+  background: #ebdcc4;         /* light background */
+  color: black;                /* text color change */
+  box-shadow: 0 0 12px #f39c12; /* glowing shadow */
+  border-radius: 8px;
+}
+
+/*small on mobile*/
+@media (max-width: 700px) {
+  #topSearch {
+    width: 140px;
+  }
+
+  #navBar {
+    padding: 12px 12px;
+    gap: 8px;
+  }
+
+  #cartButton, #logoutButton {
+    padding: 6px 10px;
+  }
+}
+body.after-login {
+  background-image: url(image/bg2.png); /* new bg after login */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: #111; /* optional, if you want to adjust text color */
+}
+
+
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+<!-- NAVBAR -->
+<div id="navBar">
+  <!-- HAMBURGER MENU -->
+  <div class="menu-wrapper">
+    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+
+    <div class="menu-dropdown" id="menuDropdown">
+     <button onclick="renderProducts('boys'); toggleMenu()">Men Clothes</button>
+<button onclick="renderProducts('girls'); toggleMenu()">Women Clothes</button>
+<button onclick="renderProducts('boys acessories'); toggleMenu()">Men Accessories</button>
+<button onclick="renderProducts('girls acessories'); toggleMenu()">Women Accessories</button>
+
+    </div>
+  </div>
+
+  <!-- SEARCH BAR -->
+  <input type="text" id="topSearch" placeholder="Search products..." onkeyup="searchProduct()">
+
+  <!-- CART BUTTON -->
+  <button id="cartButton">Cart 🛒 (<span id="cart-count">0</span>)</button>
+
+  <!-- LOGOUT BUTTON -->
+  <button id="logoutButton" class="ghost" onclick="logout()">Logout</button>
+</div>
+
+
+</div>
+
+    <!-- LOGIN -->
+    <section id="loginPage">
+      <div class="login-box">
+        <h2>Login</h2>
+        <div style="margin: top 12px">
+          <button onclick="login()">TAP TO CONTINUE</button>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- PRODUCTS -->
+
+    <!-- PRODUCTS -->
+    <section id="productPage">
+      <!-- IMAGE BANNER -->
+<div class="image-banner">
+  <img src="image/banner.png" alt="Winter Collection Banner">
+</div>
+
+      <!-- Dynamic product rendering -->
+      <div class="products" id="productsList"></div>
+    </section>
+    <!-- CART -->
+    <section id="cartPage">
+      <div class="cart-inner">
+        <h2>Your Cart</h2>
+        <ul id="cartItems"></ul>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;">
+          <h3>Total: PKR <span id="totalAmount">0</span></h3>
+
+          <div>
+            <button onclick="showPage('productPage')" class="ghost">Back</button>
+            <button onclick="goToBilling()">Proceed to Billing</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- BILLING PAGE -->
+    <section id="billingPage">
+      <div class="billing-inner">
+        <h2>Billing & Shipping</h2>
+        <form id="billingForm" onsubmit="submitBilling(event)">
+          <div class="form-row">
+            <div class="form-field">
+              <input class="input" id="billName" placeholder="Full name" required /><br>
+            </div>
+            <div class="form-field">
+              <input class="input" id="billPhone" placeholder="Phone number" required /><br>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-field">
+              <input class="input" id="billEmail" placeholder="Email (optional)" type="email" /><br>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-field">
+              <textarea id="billAddress" class="input" placeholder="Shipping Address" required></textarea><br>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-field">
+              <label for="shipMethod" style="display:block;margin-bottom:6px;font-weight:600">Shipment Method</label>
+              <select id="shipMethod" required>
+                <option value="standard">Standard Shipping (3-6 days)</option><br><br>
+                <option value="express">Express Shipping (1-2 days) - PKR 500</option><br>
+              </select>
+            </div>
+
+            <div class="form-field"><br>
+              <label style="display:block;margin-bottom:6px;font-weight:600">Payment Method</label><br>
+              <select id="payMethod" required>
+                <option value="cod">Cash on Delivery (COD)</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="margin-top:10px; display:flex; gap:10px;">
+            <button type="button" class="ghost" onclick="showPage('cartPage')">Back to Cart </button>
+            <button type="submit">Confirm Order</button>
+          </div>
+        </form>
+
+        <p class="small-muted">All orders are processed securely. Payment method currently: Cash on Delivery.</p>
+      </div>
+    </section>
+
+    <!-- ✅ ORDER CONFIRMATION PAGE -->
+    <section id="confirmPage">
+      <div class="confirm-inner">
+        <h2>✅ Order Confirmed</h2>
+        <h3>Thank you for shopping with Elaro Store!</h3><br>
+        <p>Your tracking ID: <span class="tracking" id="trackingId"></span></p>
+        <p id="confirmSummary"></p>
+        <div style="margin-top:12px;">
+          <button onclick="showPage('productPage')">Back to Shop</button>
+          <button onclick="showFeedback()">Leave Feedback</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEEDBACK -->
+    <section id="feedbackPage">
+      <div class="feedback-inner">
+        <h2>Feedback</h2>
+        <textarea id="feedbackText" placeholder="Share your feedback..." required></textarea><br>
+        <div style="margin-top:10px;display:flex;gap:8px;">
+          <button class="ghost" onclick="closeFeedback()">Cancel</button><br>
+          <button onclick="submitFeedback()">Send Feedback</button>
+        </div>
+        <p id="feedbackThanks" class="small-muted" style="margin-top:10px;display:none;">Thanks for your feedback!</p>
+      </div>
+    </section>
+
+  </div> <!-- container end -->
+
+  <script>
+    /* ---------- data (unchanged) ---------- */
+    let currentCategory = "boys";
+
+    let products = [
+
+      /* MEN */
+      { name: "Bomber Jacket", price: 1199, img: "https://media-photos.depop.com/b0/20310551/1157843420_71558e872c014abb8ccc46d63780b8fa/P0.jpg", category: "boys" },
+      { name: "Swet-Shirt", price: 1199, img: "https://tse2.mm.bing.net/th/id/OIP.4NMGphhX1s5Mh3VS-x1wvAHaIO?pid=Api", category: "boys" },
+      { name: "T-Shirt", price: 999, img: "https://tse2.mm.bing.net/th/id/OIP.0NF71i_TL3OE-Q2KHPwC2AHaE8?pid=Api&P=0&h=220", category: "boys" },
+      { name: "Casual-Shirt", price: 1499, img: "https://tse3.mm.bing.net/th/id/OIP.BW5sa1zTOvn7fzoU64sIfAHaHa?pid=Api&P=0&h=220", category: "boys" },
+      { name: "Sleeveless-Shirt", price: 799, img: "https://tse4.mm.bing.net/th/id/OIP.zpOPDN0FvKkgW17EGNrDMQHaHa?pid=Api&P=0&h=220", category: "boys" },
+      { name: "Baggy Jeans", price: 1499, img: "https://tse1.mm.bing.net/th/id/OIP.GuNTGPA-KV9vlF2egPj9CAHaJ3?pid=Api&P=0&h=220", category: "boys" },
+      { name: "Straight Jeans", price: 1199, img: "https://tse4.mm.bing.net/th/id/OIF.vrXrVeDR6kSFaGjvsPCNgQ?pid=Api&P=0&h=220", category: "boys" },
+      { name: "Skinny Jeans", price: 999, img: "https://tse4.mm.bing.net/th/id/OIP.OiBY4Z6LYURu9t623KCUvgHaJd?pid=Api&P=0&h=220", category: "boys" },
+      { name: "Dress Pent", price: 1999, img: "https://tse1.mm.bing.net/th/id/OIP.wsZuhTbdz08MXg2znpdBngHaJQ?pid=Api&P=0&h=220", category: "boys" },
+      { name: "Baggy Hoddie", price: 2499, img: "https://i.pinimg.com/originals/c5/3b/21/c53b21cb78f31c2734933259e21949da.jpg", category: "boys" },
+      { name: "Zipper", price: 2199, img: "https://tse2.mm.bing.net/th/id/OIP.4x4bgfJxwZL49bERKlv7xwHaHa?pid=Api&P=0&h=220", category: "boys" },
+      { name: "Leather Jacket", price: 3999, img: "https://tse1.mm.bing.net/th/id/OIP.trgHvhRyIMcU8lupuBgl0QHaI4?pid=Api", category: "boys" },
+      { name: "Sweater", price: 1499, img: "https://tse2.mm.bing.net/th/id/OIP.3Yqe8qhc3TOmXB2V3fAa3gHaIi?pid=Api&P=0&h=220", category: "boys" },
+      { name: "Jordan Shoes", price: 4999, img: "https://tse2.mm.bing.net/th/id/OIP.DlnxTBLJ8c-Kw_b9V4aXKwHaHa?pid=Api", category: "boys" },
+      { name: "Joggers", price: 7999, img: "https://tse2.mm.bing.net/th/id/OIF.xzrap64vCbsGCXvEvPNKow?pid=Api&P=0&h=220", category: "boys" },
+      { name: "Sneakers", price: 3499, img: "https://img4.dhresource.com/webp/m/0x0/f3/albu/jc/g/14/ba7bad62-5cd3-4f73-86c4-d073291e5088.jpg", category: "boys" },
+      { name: "Wiggins", price: 2999, img: "https://www.marshallshoes.co.uk/images/mens-wiggins-dark-brown-hand-painted-leather-loafers-p14541-50695_image.jpg", category: "boys" },
+      { name: "Nike Air Force-1", price: 4999, img: "https://tse1.mm.bing.net/th/id/OIP.papmfhObum_6JtTFCGHfkAHaF7?pid=Api&P=0&h=220", category: "boys" },
+
+      { name: "G-Shock Watch", price: 2499, img: "https://sp.yimg.com/ib/th?id=OPHS.%2b%2fOBYYehV44WYQ474C474&o=5", category: "boys acessories" },
+      { name: "Braclet", price: 999, img: "https://tse4.mm.bing.net/th/id/OIP.rZCmsiTlRl9ZU8F6hc1XLAHaHa?pid=Api", category: "boys acessories" },
+      { name: "Silver Chain", price: 1499, img: "https://i.etsystatic.com/21729963/r/il/5d172f/4209598412/il_1080xN.4209598412_47bq.jpg", category: "boys acessories" },
+      { name: "Black rings", price: 299, img: "https://plantingseedscaribbean.com/public/uploads/all/DC9RNynGn29209gb41ss3we9NLct3bo5fveTLGv3.jpg", category: "boys acessories" },
+      { name: "Wallet", price: 1499, img: "https://tse2.mm.bing.net/th/id/OIP.3SI5LhK-sQ6gteH39u5bhgHaE8?pid=Api&P=0&h=220", category: "boys acessories" },
+      { name: "Cuban Chain", price: 1199, img: "https://tse3.mm.bing.net/th/id/OIP._0yxhBp1vk9q7BgEyhOTRgHaHa?pid=Api", category: "boys acessories" },
+      { name: "Transparent-Glasses", price: 499, img: "https://tse2.mm.bing.net/th/id/OIP.teqIXIxYCMkYRG2ciYavBQHaHa?pid=Api", category: "boys acessories" },
+      { name: "Belt", price: 499, img: "https://tse2.mm.bing.net/th/id/OIP.Kq3IlQWjWHMpGb8Cnhm4cgHaHa?pid=Api&P=0&h=220", category: "boys acessories" },
+      { name: "Sun-Glasses", price: 499, img: "https://tse2.mm.bing.net/th/id/OIP._yn5gmW79EDBm7w4ny8WNwHaHa?pid=Api&P=0&h=220", category: "boys acessories" },
+      { name: "Wirless HeadPhones", price: 1999, img: "https://tse3.mm.bing.net/th/id/OIP.z6TqFIBKADkWsJG8mWE--gHaHa?pid=Api&P=0&h=220", category: "boys acessories" },
+
+
+
+      /* WOMEN */
+      { name: "Ladies Kurta", price: 1499, img: "https://tse2.mm.bing.net/th/id/OIP.TBv_nk77f4ykR8naEIzq-gHaJ4?pid=Api", category: "girls" },
+      { name: "Ladies Shawl", price: 1499, img: "https://tse2.mm.bing.net/th/id/OIP.rxNyyJh_OHwr-7jy1BkB0wHaH7?pid=Api", category: "girls" },
+      { name: "Coat", price: 3499, img: "https://tse3.mm.bing.net/th/id/OIP._9XyvmPYcTYBc0f3zQIxaAHaJ4?pid=Api", category: "girls" },
+      { name: "Simple Abaya", price: 2999, img: "https://tse1.mm.bing.net/th/id/OIP.qypW73R6JC9Ton1oy6d4MgHaLV?pid=Api", category: "girls" },
+      { name: "Shalwar Kameez", price: 4999, img: "https://i.pinimg.com/originals/61/83/ca/6183cad4598e1e3301f23675d927909d.jpg", category: "girls" },
+      { name: "Mehroon Sarhi", price: 4999, img: "https://i.pinimg.com/originals/30/55/2c/30552c634faf2a25aafcd64a2046b333.jpg", category: "girls" },
+      { name: "Zipper", price: 4999, img: "https://i5.walmartimages.com/seo/Gufahion-Hoodies-for-Women-Cropped-Half-Zipper-Long-Sleeve-Sweatshirt-with-Pocket-Fall-Fashion-Outfits-Winter-Clothing-for-Women_f664e843-2b0e-4609-a769-4720886c702d.190ddcb67276d3a0156a7183084c9379.jpeg?odnHeight=573&odnWidth=573&odnBg=FFFFFF", category: "girls" },
+      { name: "Kurta", price: 1999, img: "https://i.pinimg.com/originals/23/af/53/23af53e8d232f1b0d0ced380de47622b.jpg", category: "girls" },
+      { name: "Trouser", price: 1999, img: "https://tse3.mm.bing.net/th/id/OIP.ewAJ4ZGNULp8h4ZpyuxppQHaJ3?pid=Api&P=0&h=220", category: "girls" },
+      { name: "Hoddie", price: 1999, img: "https://tse3.mm.bing.net/th/id/OIP.85QTiClJgVYGiMdb3xY88wHaJ3?pid=Api&P=0&h=220", category: "girls" },
+      { name: "Jeans Jacker", price: 2999, img: "https://tse3.mm.bing.net/th/id/OIP.cazx9ez2_WQ7P5SGVgyL6wHaHa?pid=Api&P=0&h=220", category: "girls" },
+      { name: "Sweater", price: 1499, img: "https://u-mercari-images.mercdn.net/photos/m18054499866_1.jpg?width=3840&quality=75&format=pjpg&auto=webp&_=1678456914", category: "girls" },
+      { name: "Eldora Olive Green", price: 1499, img: "https://i.pinimg.com/originals/9e/e9/c9/9ee9c90957d9dfdf2c9bca265235983f.jpg", category: "girls" },
+      { name: "Small bag", price: 1499, img: "https://tse3.mm.bing.net/th/id/OIP.kp1x3o7J_hbr_Frr4BQD-QHaHa?pid=Api&P=0&h=220", category: "girls" },
+      { name: "Leather Bag", price: 2999, img: "https://tse4.mm.bing.net/th/id/OIP.WYfbeycRFzxe7-fUJcVKGQHaHa?pid=Api", category: "girls" },
+      { name: "Heels", price: 1499, img: "https://tse1.mm.bing.net/th/id/OIP.tuY-Jd07yr3hHzz0Hk1NBQHaJ4?pid=Api", category: "girls" },
+      { name: "Sneakers", price: 1499, img: "https://tse3.mm.bing.net/th/id/OIF.dvLbDWgoMWdWBM0D2JcAVw?pid=Api&P=0&h=220", category: "girls" },
+
+
+      { name: "Lip Glose", price: 499, img: "https://tse3.mm.bing.net/th/id/OIP.m2WfAw9FVlXqZi2bX7SAgwHaJ3?pid=Api", category: "girls acessories" },
+      { name: "SunBlock", price: 799, img: "https://tse2.mm.bing.net/th/id/OIP.eChBwzkx6pIWpGnY8p0u9gHaHa?pid=Api", category: "girls acessories" },
+      { name: "Lipstick", price: 399, img: "https://tse2.mm.bing.net/th/id/OIP.dwNZdoHjWCt2oqcfTwcVJAHaLH?pid=Api", category: "girls acessories" },
+      { name: "Maskara", price: 599, img: "https://tse4.mm.bing.net/th/id/OIP.2h1lI1ZDednXd4iqqVMzVgHaHa?pid=Api", category: "girls acessories" },
+      { name: "Earings", price: 299, img: "https://tse3.mm.bing.net/th/id/OIP.U0hzER6MsR0vImguHlDShAHaHq?pid=Api", category: "girls acessories" },
+      { name: "Anklet", price: 499, img: "https://sp.yimg.com/ib/th?id=OPHS.2XMPW025SedOkg474C474&o=5", category: "girls acessories" },
+      { name: "Foundation", price: 799, img: "https://tse1.mm.bing.net/th/id/OIP.I4MqnGx2xDe4Q1wPbigVUAHaHa?pid=Api", category: "girls acessories" },
+      { name: "Nailpolish", price: 399, img: "https://tse2.mm.bing.net/th/id/OIP.WuqERDbjJXsQU7crj3UKjAHaHa?pid=Api", category: "girls acessories" },
+      { name: "Eyeliner", price: 499, img: "https://tse4.mm.bing.net/th/id/OIP.eI0_qwCj6Gg_rcGmTfLYcwHaHa?pid=Api", category: "girls acessories" },
+      { name: "Silver ring", price: 499, img: "https://tse3.mm.bing.net/th/id/OIP.etHILsFOBbuYYrnyfbacpAHaE5?pid=Api", category: "girls acessories" },
+
+
+      /* NEW ARRIVAL */
+      { name: "PERFUME 💥🆕️", price: 4999, img: "https://tse1.mm.bing.net/th/id/OIP.ZZhK6bS31VY46L7aOC0zhAHaIn?pid=Api&P=0&h=220", category: "new" },
+      { name: "Vans Black 💥🆕️", price: 3499, img: "https://m.media-amazon.com/images/I/81H3Z8jeeiL._AC_UY900_.jpg", category: "new" },
+      { name: "Kitten Heals 💥🆕️ ", price: 1499, img: "https://i.pinimg.com/originals/65/ac/4e/65ac4e41aeccef8bc80e5f04cf36fa97.webp", category: "new" },
+    ];
+
+
+
+    let cart = []; // will store {productIndex, quantity}
+
+    /* ---------- LOGIN ---------- */
+    function login() {
+      showPage("productPage");
+  document.getElementById("navBar").style.display = "flex"; // navbar appears after login
+  renderProducts("boys");
+
+  // Add the new background class
+  document.body.classList.add("after-login");
+    }
+    function logout() {
+     document.getElementById("navBar").style.display = "none";
+  showPage("loginPage");
+  cart = [];
+  updateCartUI();
+
+  // Remove the after-login background
+  document.body.classList.remove("after-login");
+    }
+
+    /* ---------- PAGE SWITCH ---------- */
+    function showPage(id) {
+      document.querySelectorAll("section").forEach(s => s.style.display = "none");
+      document.getElementById(id).style.display = "block";
+      // keep nav visible when logged in
+      if (id !== "loginPage" && navBar.style.display !== "flex") {
+        navBar.style.display = "flex";
+      }
+    }
+    /* ---------- RENDER PRODUCTS ----------
+       Important fix: use original index of product in products array so addToCart uses correct product.
+    */
+    function renderProducts(cat) {
+      currentCategory = cat;
+      let box = document.getElementById("productsList");
+      box.innerHTML = "";
+      products.forEach((p, idx) => {
+        if (p.category === cat) {
+          box.innerHTML += `
+        <div class="product">
+          <img src="${p.img}" alt="${p.name}">
+          <h3>${p.name}</h3>
+          <p>PKR ${p.price}</p>
+          <input type="number" id="qty-${idx}" min="1" value="1" style="width:72px;padding:8px;border-radius:6px;border:1px solid #e5e9ee">
+          <button onclick="addToCart(${idx})">Add to Cart</button>
+        </div>
+      `;
+        }
+      });
+    }
+
+    /* ---------- SEARCH PRODUCTS (also uses original indexes) ---------- */
+    function searchProduct() {
+      let term = document.getElementById("topSearch").value.toLowerCase();
+      let box = document.getElementById("productsList");
+      box.innerHTML = "";
+      products.forEach((p, idx) => {
+        if (p.category === currentCategory && p.name.toLowerCase().includes(term)) {
+          box.innerHTML += `
+        <div class="product">
+          <img src="${p.img}" alt="${p.name}">
+          <h3>${p.name}</h3>
+          <p>PKR ${p.price}</p>
+          <input type="number" id="qty-${idx}" min="0" value="0" style="width:72px;padding:8px;border-radius:6px;border:1px solid #e5e9ee">
+          <button onclick="addToCart(${idx})">Add to Cart</button>
+        </div>
+      `;
+        }
+      });
+    }
+
+    /* ---------- CART (improved) ---------- */
+
+    /* addToCart now takes the original product index in the products[] array.
+       If product already in cart, increment its quantity.
+    */
+    function addToCart(productIndex) {
+      const qtyInput = document.getElementById(`qty-${productIndex}`);
+      let q = 0; // change to 0 default
+      if (qtyInput) q = parseInt(qtyInput.value) || 0; // in the case of invalid input set 0
+      // check if product already in cart
+      const existing = cart.find(c => c.productIndex === productIndex);
+      if (existing) {
+        existing.quantity = q; // set to new quantity
+      } else {
+        cart.push({ productIndex: productIndex, quantity: q });
+      }
+      updateCartUI();
+      alert("Added to cart");
+    }
+
+    /* remove item from cart by index in cart array */
+    function removeFromCart(cartIndex) {
+      cart.splice(cartIndex, 1);
+      updateCartUI();
+    }
+
+    /* change quantity (set) */
+    function setCartQuantity(cartIndex, qty) {
+      qty = parseInt(qty);
+      if (isNaN(qty) || qty <= 0) {
+        // remove item when quantity set to 0 or invalid
+        removeFromCart(cartIndex);
+        return;
+      }
+      cart[cartIndex].quantity = qty;
+      updateCartUI();
+    }
+
+    /* increase / decrease helpers */
+    function changeCartQty(cartIndex, delta) {
+      let item = cart[cartIndex];
+      if (!item) return;
+      item.quantity += delta;
+      if (item.quantity <= 0) {
+        removeFromCart(cartIndex);
+      } else {
+        updateCartUI();
+      }
+    }
+
+    /* update UI for cart */
+    function updateCartUI() {
+      let list = document.getElementById("cartItems");
+      let total = 0;
+      list.innerHTML = "";
+
+      cart.forEach((entry, i) => {
+        const prod = products[entry.productIndex];
+        const subtotal = prod.price * entry.quantity;
+        total += subtotal;
+
+        list.innerHTML += `
+      <li>
+        <div class="cart-left">
+          <img class="cart-thumb" src="${prod.img}" alt="${prod.name}">
+          <div>
+            <div style="font-weight:700">${prod.name}</div>
+            <div class="small">PKR ${prod.price} each</div>
+            <div class="small" style="margin-top:6px">Subtotal: PKR ${subtotal}</div>
+          </div>
+        </div>
+
+        <div class="cart-actions">
+          <div class="qty-controls">
+            <button onclick="changeCartQty(${i}, -1)">−</button>
+            <input type="number" min="1" value="${entry.quantity}" id="cart-qty-${i}" style="width:56px;padding:6px;border-radius:6px;border:1px solid #eef2f7;text-align:center" onchange="setCartQuantity(${i}, this.value)">
+            <button onclick="changeCartQty(${i}, 1)">+</button>
+          </div>
+          <div style="margin-left:10px">
+            <button class="ghost" onclick="removeFromCart(${i})">Remove</button>
+          </div>
+        </div>
+      </li>
+    `;
+      });
+
+      document.getElementById("totalAmount").innerText = total;
+      document.getElementById("cart-count").innerText = cart.reduce((s, c) => s + c.quantity, 0);
+    }
+
+    /* ---------- ORDER FLOW: billing, confirm, tracking ---------- */
+    function goToBilling() {
+      if (cart.length === 0) {
+        alert("Cart is empty!");
+        return;
+      }
+      // show billing page
+      showPage("billingPage");
+    }
+
+    /* when billing form is submitted generate an order, tracking ID and show confirm */
+    function submitBilling(e) {
+      e.preventDefault();
+      // gather billing info
+      const name = document.getElementById("billName").value.trim();
+      const phone = document.getElementById("billPhone").value.trim();
+      const email = document.getElementById("billEmail").value.trim();
+      const address = document.getElementById("billAddress").value.trim();
+      const shipMethod = document.getElementById("shipMethod").value;
+      const payMethod = document.getElementById("payMethod").value;
+
+      // calculate total + shipping cost
+      let subtotal = cart.reduce((s, entry) => s + products[entry.productIndex].price * entry.quantity, 0);
+      let shippingFee = shipMethod === "express" ? 500 : 0;
+      let total = subtotal + shippingFee;
+
+      // generate tracking ID
+      const tracking = generateTrackingId();
+
+      // prepare a short summary
+      let summary = `Order for ${name} (${phone}) — Shipping: ${shipMethod === "express" ? "Express" : "Standard"}. Total paid on delivery: PKR ${total}.`;
+      document.getElementById("confirmSummary").innerText = summary;
+      document.getElementById("trackingId").innerText = tracking;
+
+      // clear cart (order placed)
+      cart = [];
+      updateCartUI();
+
+      // show confirm page
+      showPage("confirmPage");
+    }
+
+    /* helper for tracking id: random 10 chars */
+    function generateTrackingId() {
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      let out = "";
+      for (let i = 0; i < 10; i++) {
+        out += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return out;
+    }
+
+    /* ---------- FEEDBACK ---------- */
+    function showFeedback() {
+      showPage("feedbackPage");
+      document.getElementById("feedbackText").value = "";
+      document.getElementById("feedbackThanks").style.display = "none";
+    }
+
+    function closeFeedback() {
+      // return to confirm page
+      showPage("confirmPage");
+    }
+
+    function submitFeedback() {
+      const text = document.getElementById("feedbackText").value.trim();
+      if (!text) { alert("Please enter feedback before submitting."); return; }
+      // in a real app we'd send to server. Here we just show a thank you.
+      document.getElementById("feedbackThanks").style.display = "block";
+      setTimeout(() => {
+        document.getElementById("feedbackThanks").innerText = "Thanks — we received your feedback.";
+        // return to confirm page after a short delay
+        setTimeout(() => showPage("confirmPage"), 900);
+      }, 400);
+    }
+
+
+    /* ---------- initialize ---------- */
+    renderProducts("boys");
+    renderProducts("boys acessories");
+    renderProducts("girls");
+    renderProducts("girls acessories");
+    updateCartUI();
+    showPage("loginPage");
+function toggleMenu() {
+   const menu = document.getElementById("menuDropdown"); // get the dropdown
+  menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+  menu.style.flexDirection = "column";
+}
+document.addEventListener("click", function (e) {
+  const menu = document.getElementById("menuDropdown");
+  const btn = document.querySelector(".menu-btn");
+
+  if (!menu || !btn) return;
+
+  if (!menu.contains(e.target) && !btn.contains(e.target)) {
+    menu.style.display = "none";
+  }
+});
+
+  </script>
+</body>
+
+</html>

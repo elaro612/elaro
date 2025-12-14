@@ -1,0 +1,230 @@
+/* ==================== GENERAL ==================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #ffffff;
+  color: #333;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)),
+    url('https://images.unsplash.com/photo-1612831455542-4d7d4d1a7fc2?auto=format&fit=crop&w=1950&q=80');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  transition: background 0.5s ease-in-out;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(-45deg, rgba(255,255,255,0.05), rgba(0,0,0,0.05), rgba(255,255,255,0.05));
+  background-size: 400% 400%;
+  animation: gradientAnimation 30s ease infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ==================== NAVBAR ==================== */
+#navBar {
+  
+  display: flex;
+  padding: 15px 40px;
+  background-color: rgba(30,30,47,0.85);
+  color: #070101;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  border-bottom: 1px solid #333;
+}
+
+#navBar h2 {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+#navBar input {
+  padding: 10px;
+  width: 250px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+}
+
+
+#navBar input:focus {
+  box-shadow: 0 0 10px rgba(30,144,255,0.6);
+}
+
+/* 🔥 LOGIN BUTTON CENTERED */
+.login-btn {
+  margin: 0 auto !important;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login-box{
+
+  width: 300px;
+  padding: 20px;
+  background-color: #000;
+  border-radius: 8px;
+
+}
+
+/* 🔥 CART BUTTON ORANGE */
+#navBar .cart-btn,
+.cart {
+  background-color: orange !important;
+  color: white !important;
+  font-weight: 700;
+  padding: 10px 20px;
+  border-radius: 8px;
+}
+
+#navBar .cart-btn:hover {
+  background-color: #ff8c00 !important;
+}
+
+/* ==================== ALL BUTTONS ==================== */
+button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+
+/* 🔥 ADD TO CART BUTTON BLACK */
+.product button {
+  background-color: #000 !important;
+  color: #fff !important;
+  
+}
+
+.product button:hover {
+  background-color: #fffcfc !important;
+}
+
+/* ==================== LOGIN PAGE ==================== */
+section {
+  display: none;
+  padding: 20px;
+}
+
+#loginPage {
+  position: relative;
+  height: 100vh;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+    url('https://tse4.mm.bing.net/th/id/OIP.BolhQa7Y1TOmhVphndKi6QHaEJ?pid=Api&P=0&h=220');
+  background-size: cover;
+  background-position: center;
+}
+
+.login-box {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translate(-50%, -50%);
+  background: rgba(255,255,255,0.98);
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  width: 360px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+}
+
+
+.login-box input {
+  width: 100%;
+  padding: 12px 15px;
+  margin: 12px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.login-box input:focus {
+  border-color: #1e90ff;
+}
+
+body {
+    background-image: url("https://tse2.mm.bing.net/th/id/OIP.ECNTpIbngg67qh5g-ZT5kQHaFy?pid=Api&P=0&h=220");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+ 
+
+/* ==================== PRODUCTS PAGE ==================== */
+.products {
+  
+  
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 25px;
+  padding: 30px 50px;
+  background-image:url("https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1350&q=80"),
+    linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)),
+    url('https://images.unsplash.com/photo-1605902711622-cfb43c4437cb?auto=format&fit=crop&w=1950&q=80');
+  background-size: cover;
+  background-position: center;
+  border-radius: 15px;
+}
+
+
+.product {
+  
+  background-color: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+  text-align: center;
+  transition: 0.4s ease;
+}
+ 
+.product img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  
+}
+
+.product:hover {
+ 
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+}
+
+
+
+/* ==================== CART PAGE ==================== */
+.cart-box {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.95), rgba(254, 254, 254, 0.95)),
+    url('https://tse2.mm.bing.net/th/id/OIP.nTtiG39NXbUYe142SaIy8wHaEJ?pid=Api&P=0&h=220');
+  background-size: cover;
+  background-position: center;
+  width: 80%;
+  margin: 30px auto;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
