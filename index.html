@@ -205,49 +205,75 @@
     }
 
     /* PRODUCTS */
-    .products {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      padding: 0 40px;
-      gap: 20px;
-    }
+   .products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* responsive columns */
+  gap: 30px;  /* space between cards */
+  padding: 20px 40px;
+  justify-items: center; /* center cards */
+}
 
     .product {
-      background: rgb(7, 0, 0);
-      padding: 0 16px; 
-      border-radius: 12px;
-      text-align: center;
-      box-shadow: 0 6px 18px rgba(255, 255, 255, 0.06);
-    }
-    .product:hover {
-  transform: translateY(-20px);       /* move up slightly */
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);  /* stronger shadow */
+  background: #000000;               /* white background */
+  padding: 16px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* subtle shadow */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;                    /* take full grid column */
+  max-width: 280px;               /* optional max width */
+}
+
+.product:hover {
+  transform: translateY(-6px);   /* lift on hover */
+  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
 }
 
 
     .product img {
-      width: 100%;
-      height: 160px;
-      object-fit: cover;
-      border-radius: 8px;
-    }
-    .product h3 {
-      margin: 10px 0 6px;
-      font-size: 16px;
-    }
+  width: 100%;
+  height: 280px;                  /* bigger height */
+  object-fit: cover;              /* cover full area */
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+}
 
-    .product p {
-      margin: 6px 0 10px;
-      color: #333;
-      font-weight: 600
-    }
+.product:hover img {
+  transform: scale(1.05);        /* subtle zoom effect */
+}
+
+    
+    .product h3 {
+  margin: 12px 0 6px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.product p {
+  margin: 4px 0 12px;
+  font-size: 16px;
+  color: #ffffff;
+  font-weight: 500;
+}
 
     /* ✅ MAKE ALL "ADD TO CART" BUTTONS BLACK */
     .product button {
-      background: black !important;
-      color: rgb(224, 220, 220) !important;
-    }
+  background: #ffffff;          /* dark button */
+  color: #000000;
+  padding: 10px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.product button:hover {
+  background: #ff6600;      /* accent color on hover */
+}
+
 
     /* CART / BILLING / DELIVERY / CONFIRM */
     .cart-inner,
@@ -485,7 +511,11 @@ body.after-login {
   <input type="text" id="topSearch" placeholder="Search products..." onkeyup="searchProduct()">
 
   <!-- CART BUTTON -->
-  <button id="cartButton">Cart 🛒 (<span id="cart-count">0</span>)</button>
+  <!-- CART BUTTON -->
+<button id="cartButton" onclick="showPage('cartPage')">
+  Cart 🛒 (<span id="cart-count">0</span>)
+</button>
+
 
   <!-- LOGOUT BUTTON -->
   <button id="logoutButton" class="ghost" onclick="logout()">Logout</button>
@@ -624,6 +654,23 @@ body.after-login {
 
     let products = [
 
+    /* WOMEN */
+      { name: "OverSized Varsity Jacket", price: 1499, img: "image/wj2.png", category: "girls" },
+      { name: "Denim Jacket", price: 3499, img: "image/wj3.png", category: "girls" },
+      { name: "Denim Jacket Black", price: 3499, img: "image/wj4.png", category: "girls" },
+      { name: "Fur Coat", price: 2999, img: "image/wj5.png", category: "girls" },
+      { name: "Long Coat", price: 4999, img: "image/wj6.png", category: "girls" },
+      { name: "Embroided Varsity Jacket", price: 4999, img: "image/wj7.png", category: "girls" },
+      { name: "Knit Sleeves Puffer jacket", price: 4999, img: "image/wj8.png", category: "girls" },
+      { name: "Textured Fur Jacket", price: 1999, img: "image/wj9.png", category: "girls" },
+      { name: "Fur Jacket With Mock Neck", price: 1999, img: "image/wj10.png", category: "girls" },
+      { name: "Sherpa Jacket", price: 1999, img: "image/12.png", category: "girls" },
+      { name: "Cropped Puffer Jacket", price: 2999, img: "image/13.png", category: "girls" },
+      { name: "Puffer Jacket", price: 1499, img: "image/14.png", category: "girls" },
+      { name: "Chrome Puffer Jacket", price: 1499, img: "image/15.png", category: "girls" },
+      { name: "Suede Jacket", price: 1499, img: "image/16.png", category: "girls" },
+      { name: "Fur Coat", price: 2999, img: "image/17.png", category: "girls" },
+    
       /* MEN */
       { name: "Bomber Jacket", price: 1199, img: "https://media-photos.depop.com/b0/20310551/1157843420_71558e872c014abb8ccc46d63780b8fa/P0.jpg", category: "boys" },
       { name: "Swet-Shirt", price: 1199, img: "https://tse2.mm.bing.net/th/id/OIP.4NMGphhX1s5Mh3VS-x1wvAHaIO?pid=Api", category: "boys" },
@@ -657,24 +704,7 @@ body.after-login {
 
 
 
-      /* WOMEN */
-      { name: "Ladies Kurta", price: 1499, img: "https://tse2.mm.bing.net/th/id/OIP.TBv_nk77f4ykR8naEIzq-gHaJ4?pid=Api", category: "girls" },
-      { name: "Ladies Shawl", price: 1499, img: "https://tse2.mm.bing.net/th/id/OIP.rxNyyJh_OHwr-7jy1BkB0wHaH7?pid=Api", category: "girls" },
-      { name: "Coat", price: 3499, img: "https://tse3.mm.bing.net/th/id/OIP._9XyvmPYcTYBc0f3zQIxaAHaJ4?pid=Api", category: "girls" },
-      { name: "Simple Abaya", price: 2999, img: "https://tse1.mm.bing.net/th/id/OIP.qypW73R6JC9Ton1oy6d4MgHaLV?pid=Api", category: "girls" },
-      { name: "Shalwar Kameez", price: 4999, img: "https://i.pinimg.com/originals/61/83/ca/6183cad4598e1e3301f23675d927909d.jpg", category: "girls" },
-      { name: "Mehroon Sarhi", price: 4999, img: "https://i.pinimg.com/originals/30/55/2c/30552c634faf2a25aafcd64a2046b333.jpg", category: "girls" },
-      { name: "Zipper", price: 4999, img: "https://i5.walmartimages.com/seo/Gufahion-Hoodies-for-Women-Cropped-Half-Zipper-Long-Sleeve-Sweatshirt-with-Pocket-Fall-Fashion-Outfits-Winter-Clothing-for-Women_f664e843-2b0e-4609-a769-4720886c702d.190ddcb67276d3a0156a7183084c9379.jpeg?odnHeight=573&odnWidth=573&odnBg=FFFFFF", category: "girls" },
-      { name: "Kurta", price: 1999, img: "https://i.pinimg.com/originals/23/af/53/23af53e8d232f1b0d0ced380de47622b.jpg", category: "girls" },
-      { name: "Trouser", price: 1999, img: "https://tse3.mm.bing.net/th/id/OIP.ewAJ4ZGNULp8h4ZpyuxppQHaJ3?pid=Api&P=0&h=220", category: "girls" },
-      { name: "Hoddie", price: 1999, img: "https://tse3.mm.bing.net/th/id/OIP.85QTiClJgVYGiMdb3xY88wHaJ3?pid=Api&P=0&h=220", category: "girls" },
-      { name: "Jeans Jacker", price: 2999, img: "https://tse3.mm.bing.net/th/id/OIP.cazx9ez2_WQ7P5SGVgyL6wHaHa?pid=Api&P=0&h=220", category: "girls" },
-      { name: "Sweater", price: 1499, img: "https://u-mercari-images.mercdn.net/photos/m18054499866_1.jpg?width=3840&quality=75&format=pjpg&auto=webp&_=1678456914", category: "girls" },
-      { name: "Eldora Olive Green", price: 1499, img: "https://i.pinimg.com/originals/9e/e9/c9/9ee9c90957d9dfdf2c9bca265235983f.jpg", category: "girls" },
-      { name: "Small bag", price: 1499, img: "https://tse3.mm.bing.net/th/id/OIP.kp1x3o7J_hbr_Frr4BQD-QHaHa?pid=Api&P=0&h=220", category: "girls" },
-      { name: "Leather Bag", price: 2999, img: "https://tse4.mm.bing.net/th/id/OIP.WYfbeycRFzxe7-fUJcVKGQHaHa?pid=Api", category: "girls" },
-      { name: "Heels", price: 1499, img: "https://tse1.mm.bing.net/th/id/OIP.tuY-Jd07yr3hHzz0Hk1NBQHaJ4?pid=Api", category: "girls" },
-      { name: "Sneakers", price: 1499, img: "https://tse3.mm.bing.net/th/id/OIF.dvLbDWgoMWdWBM0D2JcAVw?pid=Api&P=0&h=220", category: "girls" },
+      
 
 
       { name: "Lip Glose", price: 499, img: "https://tse3.mm.bing.net/th/id/OIP.m2WfAw9FVlXqZi2bX7SAgwHaJ3?pid=Api", category: "girls acessories" },
@@ -761,7 +791,7 @@ body.after-login {
           <img src="${p.img}" alt="${p.name}">
           <h3>${p.name}</h3>
           <p>PKR ${p.price}</p>
-          <input type="number" id="qty-${idx}" min="0" value="0" style="width:72px;padding:8px;border-radius:6px;border:1px solid #e5e9ee">
+          <input type="number" id="qty-${idx}" min="1" value="1" style="width:72px;padding:8px;border-radius:6px;border:1px solid #e5e9ee">
           <button onclick="addToCart(${idx})">Add to Cart</button>
         </div>
       `;
