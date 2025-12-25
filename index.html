@@ -2,10 +2,16 @@
 <html lang="en">
 
 <head>
+ 
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Professional Online Store</title>
   <style>
+     html, body {
+  width: 100%;
+  overflow-x: hidden;
+}
     /* ------- base ----- */
     /* ------- base ----- */
     body {
@@ -15,7 +21,6 @@
       color: #111;
       -webkit-font-smoothing: antialiased;
     }
-
     .container {
       max-width: 1100px;
       margin: 30px auto;
@@ -402,20 +407,37 @@
     }
     /* ===== IMAGE BANNER ===== */
 .image-banner {
-   height: 450px;
+  position: relative;
   width: 100%;
-  max-width: 1100px;       /* match container width, limits horizontal stretch */
-  margin: 20px auto 30px;  /* center horizontally with top/bottom spacing */
-  padding: 0 16px;          /* padding from left and right */
-}
-
-.image-banner img {
-  width: 100%;
-  height: 400px;            /* restore original banner height */
-  object-fit: cover;        /* maintain image ratio */
+  max-width: 1100px;
+  height: 400px;
+  margin: 20px auto 30px;
+  overflow: hidden;
   border-radius: 16px;
   box-shadow: 0 8px 25px rgb(255, 255, 255);
 }
+
+.banner-slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: opacity 1s ease-in-out;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.banner-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.banner-slide.active {
+  opacity: 1;
+  z-index: 2;
+}
+
 
 /* ===== HAMBURGER MENU ===== */
 .menu-wrapper {
@@ -484,13 +506,117 @@ body.after-login {
   background-attachment: fixed;
   color: #111; /* optional, if you want to adjust text color */
 }
+/* ===== ARROW LOGIN PAGE ===== */
+/* ===== ARROW LOGIN PAGE ===== */
+/* ===== ARROW LOGIN PAGE ===== */
+.arrow-login {
+  height: 100vh;
+  position: relative;
+  background-image: url(image/picture.jpg/alihassan.jpg);
+  background-size: cover;
+  background-position: center;
+}
 
+/* Professional arrow button */
+.enter-arrow {
+  position: absolute;
+  top: 30px;          /* top-right position */
+  right: 30px;
+
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+
+  font-size: 28px;
+  font-weight: bold;
+
+  border: none;
+  cursor: pointer;
+
+  background: rgba(0, 0, 0, 0.75);
+  color: white;
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+  transition: all 0.25s ease;
+}
+
+.enter-arrow:hover {
+  background: #ff9800;
+  transform: scale(1.08);
+}
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(255,152,0,0.6); }
+  70% { box-shadow: 0 0 0 12px rgba(255,152,0,0); }
+  100% { box-shadow: 0 0 0 0 rgba(255,152,0,0); }
+}
+
+.enter-arrow {
+  animation: pulse 2.5s infinite;
+}
+/* ===== TOOLTIP ===== */
+.enter-arrow::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  right: 75px;                /* tooltip appears left of arrow */
+  top: 50%;
+  transform: translateY(-50%);
+
+  background: rgba(0,0,0,0.85);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+
+  font-size: 13px;
+  white-space: nowrap;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+.fixed-footer {
+  width: 100%;
+  background: #111;
+  color: #fff;
+  padding: 30px 20px 15px 20px;
+  position: relative;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 -4px 12px rgba(0,0,0,0.3);
+}
+
+.footer-container {
+  max-width: 1100px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-container div h3 {
+  margin-bottom: 8px;
+  color: orange;
+}
+
+.footer-container div p {
+  margin: 4px 0;
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+.footer-copyright {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 13px;
+  opacity: 0.6;
+}
 
   </style>
 </head>
 
 <body>
+  
   <div class="container">
+
 
 <!-- NAVBAR -->
 <div id="navBar">
@@ -525,25 +651,38 @@ body.after-login {
 </div>
 
     <!-- LOGIN -->
-    <section id="loginPage">
-      <div class="login-box">
-        <h2>Login</h2>
-        <div style="margin: top 12px">
-          <button onclick="login()">TAP TO CONTINUE</button>
-        </div>
+    <section id="loginPage" class="arrow-login">
+  <button class="enter-arrow" onclick="login()" data-tooltip="Enter Store">➜</button>
 
-      </div>
-    </section>
+
+</section>
+
 
 
     <!-- PRODUCTS -->
+<section id="productPage">
 
-    <!-- PRODUCTS -->
-    <section id="productPage">
-      <!-- IMAGE BANNER -->
-<div class="image-banner">
-  <img src="image/banner.png" alt="Winter Collection Banner">
-</div>
+  <!-- IMAGE BANNER -->
+  <div class="image-banner" id="imageBanner">
+
+    <div class="banner-slide active" data-category="boys">
+      <img src="image/banner.png" alt="Winter Collection">
+    </div>
+
+    <div class="banner-slide" data-category="boys">
+      <img src="image/banner-men.png" alt="Men Clothing">
+    </div>
+
+    <div class="banner-slide" data-category="girls">
+      <img src="image/banner-women.png" alt="Women Clothing">
+    </div>
+
+  </div>
+
+  <!-- PRODUCTS -->
+  <div class="products" id="productsList"></div>
+
+</section>
 
       <!-- Dynamic product rendering -->
       <div class="products" id="productsList"></div>
@@ -644,8 +783,33 @@ body.after-login {
         </div>
         <p id="feedbackThanks" class="small-muted" style="margin-top:10px;display:none;">Thanks for your feedback!</p>
       </div>
+      <!-- ===== CONTACT SECTION ===== -->
     </section>
 
+     <footer class="fixed-footer" id="mainFooter">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h3>Elaro Store</h3>
+        <p>Premium fashion for men & women.<br>Quality you can trust.</p>
+      </div>
+
+      <div class="footer-contact">
+        <h3>Contact</h3>
+        <p>📞 +92 300 6996969</p>
+        <p>📧 support@elaro.pk</p>
+        <p>📍 Szabist University Islamabad</p>
+      </div>
+
+      <div class="footer-follow">
+        <h3>Follow Us</h3>
+        <p>Instagram | Facebook | WhatsApp</p>
+      </div>
+    </div>
+
+    <div class="footer-copyright">
+      © 2025 Elaro Store. All Rights Reserved.
+    </div>
+  </footer>
   </div> <!-- container end -->
 
   <script>
@@ -672,24 +836,21 @@ body.after-login {
       { name: "Fur Coat", price: 2999, img: "image/17.png", category: "girls" },
     
       /* MEN */
-      { name: "Bomber Jacket", price: 1199, img: "https://media-photos.depop.com/b0/20310551/1157843420_71558e872c014abb8ccc46d63780b8fa/P0.jpg", category: "boys" },
-      { name: "Swet-Shirt", price: 1199, img: "https://tse2.mm.bing.net/th/id/OIP.4NMGphhX1s5Mh3VS-x1wvAHaIO?pid=Api", category: "boys" },
-      { name: "T-Shirt", price: 999, img: "https://tse2.mm.bing.net/th/id/OIP.0NF71i_TL3OE-Q2KHPwC2AHaE8?pid=Api&P=0&h=220", category: "boys" },
-      { name: "Casual-Shirt", price: 1499, img: "https://tse3.mm.bing.net/th/id/OIP.BW5sa1zTOvn7fzoU64sIfAHaHa?pid=Api&P=0&h=220", category: "boys" },
-      { name: "Sleeveless-Shirt", price: 799, img: "https://tse4.mm.bing.net/th/id/OIP.zpOPDN0FvKkgW17EGNrDMQHaHa?pid=Api&P=0&h=220", category: "boys" },
-      { name: "Baggy Jeans", price: 1499, img: "https://tse1.mm.bing.net/th/id/OIP.GuNTGPA-KV9vlF2egPj9CAHaJ3?pid=Api&P=0&h=220", category: "boys" },
-      { name: "Straight Jeans", price: 1199, img: "https://tse4.mm.bing.net/th/id/OIF.vrXrVeDR6kSFaGjvsPCNgQ?pid=Api&P=0&h=220", category: "boys" },
-      { name: "Skinny Jeans", price: 999, img: "https://tse4.mm.bing.net/th/id/OIP.OiBY4Z6LYURu9t623KCUvgHaJd?pid=Api&P=0&h=220", category: "boys" },
-      { name: "Dress Pent", price: 1999, img: "https://tse1.mm.bing.net/th/id/OIP.wsZuhTbdz08MXg2znpdBngHaJQ?pid=Api&P=0&h=220", category: "boys" },
-      { name: "Baggy Hoddie", price: 2499, img: "https://i.pinimg.com/originals/c5/3b/21/c53b21cb78f31c2734933259e21949da.jpg", category: "boys" },
-      { name: "Zipper", price: 2199, img: "https://tse2.mm.bing.net/th/id/OIP.4x4bgfJxwZL49bERKlv7xwHaHa?pid=Api&P=0&h=220", category: "boys" },
-      { name: "Leather Jacket", price: 3999, img: "https://tse1.mm.bing.net/th/id/OIP.trgHvhRyIMcU8lupuBgl0QHaI4?pid=Api", category: "boys" },
-      { name: "Sweater", price: 1499, img: "https://tse2.mm.bing.net/th/id/OIP.3Yqe8qhc3TOmXB2V3fAa3gHaIi?pid=Api&P=0&h=220", category: "boys" },
-      { name: "Jordan Shoes", price: 4999, img: "https://tse2.mm.bing.net/th/id/OIP.DlnxTBLJ8c-Kw_b9V4aXKwHaHa?pid=Api", category: "boys" },
-      { name: "Joggers", price: 7999, img: "https://tse2.mm.bing.net/th/id/OIF.xzrap64vCbsGCXvEvPNKow?pid=Api&P=0&h=220", category: "boys" },
-      { name: "Sneakers", price: 3499, img: "https://img4.dhresource.com/webp/m/0x0/f3/albu/jc/g/14/ba7bad62-5cd3-4f73-86c4-d073291e5088.jpg", category: "boys" },
-      { name: "Wiggins", price: 2999, img: "https://www.marshallshoes.co.uk/images/mens-wiggins-dark-brown-hand-painted-leather-loafers-p14541-50695_image.jpg", category: "boys" },
-      { name: "Nike Air Force-1", price: 4999, img: "https://tse1.mm.bing.net/th/id/OIP.papmfhObum_6JtTFCGHfkAHaF7?pid=Api&P=0&h=220", category: "boys" },
+      { name: "Puffer Jacket", price: 1199, img: "image/b1.png", category: "boys" },
+      { name: "Wool Blend Jacket", price: 9099, img: "image/b2.png", category: "boys" },
+      { name: "Polyster Jacket", price: 6999, img: "image/b3.png", category: "boys" },
+      { name: "Wool Blend Coat", price: 8399, img: "image/b4.png", category: "boys" },
+      { name: "Wool Blend Jacket", price: 7699, img: "image/b5.png", category: "boys" },
+      { name: "Puffer Hoodie Jacket", price: 9799, img: "image/b6.png", category: "boys" },
+      { name: "Faux Leather Jakcet", price: 7199, img: "image/b7.png", category: "boys" },
+      { name: "Hooded Jacket", price: 4999, img: "image/b8.png", category: "boys" },
+      { name: "Textured Leather Jacket", price: 2499, img: "image/b9.png", category: "boys" },
+      { name: "Textured Coat", price: 2199, img: "image/b10.png", category: "boys" },
+      { name: "Wool Jacket", price: 7899, img: "image/b12.png", category: "boys" },
+      { name: "Denim Jacket", price: 4999, img: "image/b13.png", category: "boys" },
+      { name: "Hasrrinction Jacket", price: 7999, img: "image/b14.png", category: "boys" },
+      { name: "Denim Jacket", price: 3499, img: "image/b15.png", category: "boys" },
+    
 
       { name: "G-Shock Watch", price: 2499, img: "https://sp.yimg.com/ib/th?id=OPHS.%2b%2fOBYYehV44WYQ474C474&o=5", category: "boys acessories" },
       { name: "Braclet", price: 999, img: "https://tse4.mm.bing.net/th/id/OIP.rZCmsiTlRl9ZU8F6hc1XLAHaHa?pid=Api", category: "boys acessories" },
@@ -749,14 +910,20 @@ body.after-login {
     }
 
     /* ---------- PAGE SWITCH ---------- */
-    function showPage(id) {
-      document.querySelectorAll("section").forEach(s => s.style.display = "none");
-      document.getElementById(id).style.display = "block";
-      // keep nav visible when logged in
-      if (id !== "loginPage" && navBar.style.display !== "flex") {
-        navBar.style.display = "flex";
-      }
-    }
+   function showPage(id) {
+  document.querySelectorAll("section").forEach(s => s.style.display = "none");
+  document.getElementById(id).style.display = "block";
+
+  const footer = document.getElementById("mainFooter");
+
+  // Hide footer on login page, show on other pages
+  if (id === "loginPage") {
+    footer.style.display = "none";
+  } else {
+    footer.style.display = "block";
+  }
+}
+
     /* ---------- RENDER PRODUCTS ----------
        Important fix: use original index of product in products array so addToCart uses correct product.
     */
@@ -919,7 +1086,10 @@ body.after-login {
       const tracking = generateTrackingId();
 
       // prepare a short summary
-      let summary = `Order for ${name} (${phone}) — Shipping: ${shipMethod === "express" ? "Express" : "Standard"}. Total paid on delivery: PKR ${total}.`;
+      let summary = `Order for ${name} (${phone})
+       Shipping: ${shipMethod === "express" ? "Express" : "Standard"}. 
+       Total paid on delivery: PKR ${total}.`;
+      
       document.getElementById("confirmSummary").innerText = summary;
       document.getElementById("trackingId").innerText = tracking;
 
@@ -988,6 +1158,57 @@ document.addEventListener("click", function (e) {
     menu.style.display = "none";
   }
 });
+function showPage(id) {
+  document.querySelectorAll("section").forEach(s => s.style.display = "none");
+  document.getElementById(id).style.display = "block";
+
+  const footer = document.getElementById("mainFooter");
+
+  // Hide footer on login page, show on other pages
+  if (id === "loginPage") {
+    footer.style.display = "none";
+  } else {
+    footer.style.display = "block";
+  }
+
+  // keep nav visible when logged in
+  if (id !== "loginPage" && navBar.style.display !== "flex") {
+    navBar.style.display = "flex";
+  }
+}
+// BANNER SLIDESHOW
+let currentSlide = 0;
+const slides = document.querySelectorAll(".banner-slide");
+if (slides.length > 0) {
+  showSlide(0);
+}
+
+
+function showSlide(index) {
+  slides.forEach((s, i) => {
+    s.classList.remove("active");
+    if (i === index) s.classList.add("active");
+  });
+}
+
+// Auto-slide every 5 seconds
+setInterval(() => {
+  currentSlide = (currentSlide + 1) % slides.length;
+  showSlide(currentSlide);
+}, 5000);
+
+// Initial display
+showSlide(currentSlide);
+
+// Click on banner to navigate
+slides.forEach(slide => {
+  slide.addEventListener("click", () => {
+    const category = slide.getAttribute("data-category");
+    renderProducts(category); // render products of that category
+    showPage("productPage");  // navigate to product page
+  });
+});
+
 
   </script>
 </body>
